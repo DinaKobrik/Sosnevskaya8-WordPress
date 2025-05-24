@@ -1,0 +1,120 @@
+.progress {
+  min-height: 100vh;
+  padding: 141px 0;
+  &__container {
+    @include container();
+  }
+  &__title {
+    @include title();
+  }
+  &__years {
+    margin-top: 41px;
+    overflow: scroll;
+    scrollbar-width: none;
+    display: flex;
+    gap: 8px;
+  }
+  &__year {
+    @include button();
+    &--active {
+      @include button--primary();
+    }
+  }
+  &__items {
+    margin-top: 69px;
+    display: flex;
+    flex-direction: column;
+    gap: 43px;
+  }
+  &__item {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 182px 380px 1fr;
+    grid-template-areas: "progress_month progress_text progress_images";
+    &-month {
+      padding-top: 23px;
+      grid-area: progress_month;
+      color: var(--color-text-primary);
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 39.01px;
+    }
+    &-text {
+      padding-top: 23px;
+      grid-area: progress_text;
+    }
+    &-subheader {
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 39.01px;
+      margin-bottom: 10px;
+    }
+    &-descr {
+      color: var(--color-text-descr);
+
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 25.2px;
+    }
+    &-images {
+      cursor: grab;
+      width: 100%;
+      overflow: scroll;
+      scrollbar-width: none;
+      grid-area: progress_images;
+      display: flex;
+      gap: 20px;
+    }
+    &-img {
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      flex: 0 0 auto;
+      width: 180px;
+      height: 180px;
+      img {
+        border-radius: 10px;
+      }
+    }
+  }
+  @media (max-width: 1070px) {
+    &__item {
+      grid-template-columns: 182px 1fr;
+      grid-template-areas:
+        "progress_month progress_text"
+        "progress_month progress_images";
+    }
+  }
+  @media (max-width: 768px) {
+    &__item {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "progress_month"
+        "progress_text"
+        "progress_images";
+      &-month {
+        padding: 0;
+      }
+      &-text {
+        padding: 0;
+      }
+      &-images {
+        width: calc(100% + 80px);
+        margin: 0 -40px;
+        padding: 0 40px;
+      }
+    }
+  }
+
+  @media (max-width: 576px) {
+    padding: 102px 0;
+    &__item {
+      &-images {
+        width: calc(100% + 20px);
+        margin: 0 -10px;
+        padding: 0 10px;
+      }
+    }
+  }
+}

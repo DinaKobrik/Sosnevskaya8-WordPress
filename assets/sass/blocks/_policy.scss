@@ -1,0 +1,138 @@
+.privacy {
+  background-color: var(--bg-color);
+  color: var(--color-text);
+  padding: 7rem 0;
+  line-height: 1.6;
+  overflow: scroll;
+  scrollbar-width: none;
+
+  &__container {
+    @include container();
+    padding: 0 1rem;
+  }
+
+  &__header {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-text-header);
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  &__subheader {
+    font-size: 1.75rem;
+    font-weight: 500;
+    color: var(--color-text-header);
+    margin: 2rem 0 1rem;
+  }
+
+  &__paragraph {
+    font-size: 1rem;
+    margin: 1rem 0;
+    color: var(--color-text);
+  }
+
+  &__list {
+    margin: 1rem 0;
+    &-item {
+      position: relative;
+      font-size: 1rem;
+      padding-left: 1.5rem;
+      margin: 0.5rem 0 1rem;
+      color: var(--color-text);
+    }
+  }
+  &__enumeration {
+    list-style-type: none;
+    &-item {
+      position: relative;
+      font-size: 1rem;
+      padding-left: 1rem;
+      margin: 0.5rem 0 1rem;
+      color: var(--color-text);
+
+      &:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.5em;
+        width: 6px;
+        height: 6px;
+        background-color: var(--color-text-primary);
+        border-radius: 50%;
+      }
+    }
+  }
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    background-color: var(--bg-color);
+    border-radius: 4px;
+    overflow: hidden;
+
+    &-row {
+      transition: background-color 0.2s ease;
+      &:last-child .privacy__table-cell {
+        border-bottom: none;
+      }
+      &:hover {
+        background-color: var(--bg-color);
+      }
+    }
+
+    &-cell {
+      padding: 1rem;
+      font-size: 1rem;
+      color: var(--color-text);
+      border-bottom: 1px solid var(--color-text-descr);
+
+      &:first-child {
+        font-weight: 500;
+        color: var(--color-text-header);
+        width: 30%;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    &__header {
+      font-size: 2rem;
+    }
+
+    &__subheader {
+      font-size: 1.5rem;
+    }
+
+    &__paragraph,
+    &__list {
+      &-item {
+        font-size: 0.9rem;
+      }
+    }
+
+    &__container {
+      padding: 0 0.5rem;
+    }
+
+    &__table td {
+      font-size: 0.9rem;
+      padding: 0.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    &__header {
+      font-size: 1.75rem;
+      text-align: left;
+    }
+
+    &__subheader {
+      font-size: 1.25rem;
+    }
+
+    &__table .privacy__table-cell:first-child {
+      width: 40%;
+    }
+  }
+}

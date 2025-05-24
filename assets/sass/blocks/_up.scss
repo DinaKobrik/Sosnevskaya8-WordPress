@@ -1,0 +1,22 @@
+.up {
+  z-index: 9;
+  cursor: pointer;
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  width: 50px;
+  height: 50px;
+  padding: 11px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  a {
+    text-decoration: none;
+    transform: rotate(-90deg);
+    color: var(--color-text-primary);
+    font-size: 40px;
+    line-height: 20px;
+  }
+}

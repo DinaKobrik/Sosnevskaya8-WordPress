@@ -1,0 +1,89 @@
+.infrastructure {
+  max-width: 1440px;
+  margin: 0 auto 29px;
+  &__title {
+    @include title();
+    max-width: 1260px;
+    margin: 0 auto 49px;
+    padding: 0 40px;
+  }
+  &__items {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(288px, 1fr));
+  }
+  &__item {
+    position: relative;
+    max-width: 100%;
+    height: 100%;
+    object-fit: cover;
+    height: 580px;
+    &-img {
+      max-width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    &-text {
+      width: 100%;
+      height: 100%;
+      background: rgba(9, 25, 40, 0.5)
+        linear-gradient(0deg, #18273f 0%, rgba(24, 39, 63, 0) 100%);
+      z-index: 3;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      padding: 283px 130px 76px;
+    }
+    &-number {
+      color: var(--color-text-primary);
+      font-family: "Playfair Display";
+      font-size: 60px;
+      font-style: italic;
+      font-weight: 400;
+      line-height: 79.98px;
+      margin-bottom: 6px;
+    }
+    &-subheader {
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 39.01px;
+    }
+    &-descr {
+      max-width: 280px;
+      color: var(--color-text-descr);
+
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 25.2px;
+    }
+  }
+  @media (max-width: 992px) {
+    &__item {
+      &-text {
+        padding: 283px 70px 76px;
+      }
+    }
+  }
+  @media (max-width: 768px) {
+    &__item {
+      &-text {
+        padding: 283px 20px 76px;
+      }
+    }
+  }
+  @media (max-width: 576px) {
+    margin-bottom: 50px;
+    &__title {
+      padding: 0 10px;
+      margin-bottom: 29px;
+    }
+    &__items {
+      grid-template-columns: 1fr;
+    }
+    &__item {
+      height: 340px;
+      &-text {
+        padding: 90px 40px 29px;
+      }
+    }
+  }
+}

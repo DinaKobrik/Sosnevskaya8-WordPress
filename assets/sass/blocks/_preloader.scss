@@ -1,0 +1,109 @@
+@-webkit-keyframes movement {
+  from {
+    -webkit-transform: scale(1) translateY(0px) rotateX(0deg);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  }
+
+  to {
+    -webkit-transform: scale(1.5) translateY(-25px) rotateX(45deg);
+    box-shadow: 0 25px 40px rgba(0, 0, 0, 0.4);
+    background: #3399ff;
+  }
+}
+@keyframes movement {
+  from {
+    -webkit-transform: scale(1) translateY(0px) rotateX(0deg);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  }
+
+  to {
+    -webkit-transform: scale(1.5) translateY(-25px) rotateX(45deg);
+    box-shadow: 0 25px 40px rgba(0, 0, 0, 0.4);
+    background: #3399ff;
+  }
+}
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg-color);
+  z-index: 100;
+  &--loading {
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+  &--hidden {
+    display: none;
+  }
+
+  &__box {
+    position: absolute;
+    width: 345px;
+    height: 30px;
+    top: 50%;
+    left: 50%;
+    margin: -15px 0 0 -150px;
+    -webkit-perspective: 200px;
+  }
+
+  &__letter {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    background: #ccc;
+    float: left;
+    text-align: center;
+    line-height: 30px;
+    font-size: 20px;
+    color: var(--color-text-header);
+
+    &:nth-child(1) {
+      background: var(--color-text-primary);
+      margin-right: 15px;
+      -webkit-animation: movement 600ms ease 0ms infinite alternate;
+    }
+
+    &:nth-child(2) {
+      background: var(--color-text-primary);
+      margin-right: 15px;
+      -webkit-animation: movement 600ms ease 75ms infinite alternate;
+    }
+
+    &:nth-child(3) {
+      background: var(--color-text-primary);
+      margin-right: 15px;
+      -webkit-animation: movement 600ms ease 150ms infinite alternate;
+    }
+
+    &:nth-child(4) {
+      background: var(--color-text-primary);
+      margin-right: 15px;
+      -webkit-animation: movement 600ms ease 225ms infinite alternate;
+    }
+
+    &:nth-child(5) {
+      background: var(--color-text-primary);
+      margin-right: 15px;
+      -webkit-animation: movement 600ms ease 300ms infinite alternate;
+    }
+
+    &:nth-child(6) {
+      background: var(--color-text-primary);
+      margin-right: 15px;
+      -webkit-animation: movement 600ms ease 375ms infinite alternate;
+    }
+
+    &:nth-child(7) {
+      background: var(--color-text-primary);
+      margin-right: 15px;
+      -webkit-animation: movement 600ms ease 450ms infinite alternate;
+    }
+
+    &:nth-child(8) {
+      background: var(--color-text-primary);
+      -webkit-animation: movement 600ms ease 525ms infinite alternate;
+    }
+  }
+}

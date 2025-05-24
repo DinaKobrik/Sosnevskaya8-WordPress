@@ -1,0 +1,340 @@
+.select {
+  padding: 50px 0;
+  position: relative;
+  overflow: hidden;
+  &__container {
+    position: relative;
+    @include container();
+  }
+  &__bg {
+    margin: 0 auto;
+    max-width: 1440px;
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    width: 100%;
+    height: 205px;
+    transform: translateX(-50%);
+    background: linear-gradient(
+      180deg,
+      rgba(17, 33, 58, 0.68) 0%,
+      rgba(17, 33, 58, 0) 100%
+    );
+    z-index: -1;
+  }
+  &__wrapper {
+    &--active {
+      display: grid;
+    }
+    margin: 0 -40px 0 0;
+    display: none;
+    justify-content: start;
+    align-content: center;
+    align-items: center;
+    justify-items: start;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 1fr repeat(2, auto) 1fr;
+    grid-template-areas:
+      "select_title select_right"
+      "select_step select_right"
+      "select_wrapper select_right"
+      "select_button select_right";
+  }
+  &__title {
+    @include title();
+    margin-bottom: 29px;
+    grid-area: select_title;
+    align-self: end;
+  }
+
+  &__step {
+    padding-right: 10px;
+    height: 100%;
+    grid-area: select_step;
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto 1fr 2fr;
+    align-items: center;
+    margin-bottom: 30px;
+    &-layout {
+      grid-template-columns: auto 2fr 1fr;
+    }
+    &-wrapper {
+      margin-bottom: 98px;
+      align-self: start;
+      grid-area: select_wrapper;
+    }
+
+    &-number {
+      width: 100%;
+      color: var(--color-text-primary);
+      font-size: 22px;
+      font-weight: 600;
+      line-height: 26.82px;
+      margin-right: 14px;
+    }
+    &-divider {
+      display: block;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.16);
+      height: 1px;
+      &-bold {
+        background: rgba(255, 255, 255, 0.16);
+        display: block;
+        height: 5px;
+        width: 100%;
+      }
+    }
+    &-subheader {
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 39.01px;
+    }
+    &-floor {
+      margin-top: 10px;
+      select {
+        border: none;
+        cursor: pointer;
+        color: var(--color-text-header);
+        font-size: 22px;
+        font-weight: 500;
+        line-height: 26.82px;
+        max-width: 380px;
+        width: 100%;
+        padding: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.05);
+        option {
+          background: var(--bg-color);
+        }
+      }
+    }
+    &-arrows {
+      grid-area: select_button;
+      display: flex;
+      gap: 7px;
+    }
+    &-arrow {
+      @include button();
+      color: var(--color-text-header);
+      font-size: 30px;
+      line-height: 35px;
+      &--active {
+        @include button--primary();
+      }
+    }
+    &-items {
+      margin-top: 16px;
+      display: none;
+      gap: 10px;
+      align-items: center;
+      &--active {
+        display: flex;
+      }
+    }
+    &-item {
+      display: flex;
+      gap: 26px;
+      &__number {
+        color: var(--color-text-primary);
+        font-family: "Playfair Display";
+        font-size: 50px;
+        font-style: italic;
+        font-weight: 400;
+        line-height: 66.65px;
+        text-transform: uppercase;
+      }
+      &__text {
+        color: var(--color-text-descr);
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 21px;
+      }
+    }
+    &-img {
+      grid-area: select_right;
+      width: 780px;
+    }
+  }
+  &__button {
+    @include button();
+    grid-area: select_button;
+    &--active {
+      @include button--primary();
+    }
+  }
+  &__back {
+    position: absolute;
+    top: 0;
+    @include button();
+    &:hover {
+      @include button--primary();
+    }
+  }
+  &__card {
+    &-container {
+      cursor: grab;
+      max-width: 100%;
+      overflow: scroll;
+      scrollbar-width: none;
+      margin-left: 40px;
+      grid-area: select_right;
+    }
+    &-empty {
+      display: none;
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 39.01px;
+      text-align: center;
+      &--active {
+        display: block;
+      }
+    }
+    &-wrapper {
+      &--active {
+        display: flex;
+      }
+      transition: all 0.3s ease;
+      display: none;
+      gap: 20px;
+    }
+    &-item {
+      position: relative;
+      flex-shrink: 0;
+      width: 380px;
+      height: 590px;
+      padding: 20px 40px 40px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+    }
+    &-area {
+      color: var(--color-text-primary);
+      font-family: "Playfair Display";
+      font-size: 50px;
+      font-style: italic;
+      font-weight: 400;
+      line-height: 66.65px;
+    }
+    &-rooms {
+      color: var(--color-text-header);
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 29.26px;
+      margin-bottom: 37px;
+    }
+    &-img {
+      width: 100%;
+      height: 200px;
+      margin-bottom: 32px;
+      overflow: hidden;
+      img {
+        object-position: left;
+        object-fit: contain;
+      }
+    }
+    &-descr {
+      color: var(--color-text-descr);
+
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 25.2px;
+      margin-bottom: 28px;
+    }
+    &-button {
+      @include button();
+      position: absolute;
+      bottom: 40px;
+      left: 40px;
+      &:hover {
+        @include button--primary();
+      }
+    }
+  }
+  @media (max-width: 992px) {
+    &__wrapper {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 768px) {
+    &__step {
+      &-subheader {
+        font-size: 22px;
+        line-height: 26.82px;
+      }
+      &__descr {
+        &-wrapper {
+          flex-direction: column;
+          margin-bottom: 0;
+        }
+      }
+      &-img {
+        max-width: 780px;
+        width: 200%;
+        height: 100%;
+      }
+    }
+  }
+  @media (max-width: 576px) {
+    padding: 50px 0 0;
+    &__container {
+      padding-top: 80px;
+    }
+    &__bg {
+      bottom: 80px;
+    }
+    &__back {
+      width: 94%;
+    }
+    &__card {
+      &-container {
+        margin-left: -10px;
+        padding: 0 10px;
+        margin-bottom: 43px;
+      }
+      &-item {
+        max-width: 90%;
+      }
+      &-button {
+        width: 80%;
+      }
+    }
+    #select2 {
+      grid-template-rows: repeat(4, auto);
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "select_title"
+        "select_step"
+        "select_wrapper"
+        "select_right";
+    }
+    &__wrapper {
+      grid-template-rows: 1fr repeat(2, auto) 1fr;
+      grid-template-areas:
+        "select_title select_title"
+        "select_step select_step"
+        "select_wrapper select_right"
+        "select_button select_button";
+    }
+    &__step {
+      &-wrapper {
+        margin-bottom: 18px;
+      }
+      &-img {
+        transform: translateY(-60px);
+      }
+      &-items {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+    &__button {
+      width: 92%;
+      transform: translateY(-85px);
+    }
+    &__step {
+      &-arrows {
+        display: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+.error404 {
+  min-height: 100vh;
+  padding: 150px 0;
+  &__container {
+    @include container();
+  }
+  &__title {
+    @include title();
+  }
+  &__img {
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+  }
+}

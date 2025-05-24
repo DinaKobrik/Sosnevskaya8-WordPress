@@ -1,0 +1,133 @@
+.contact {
+  &__title {
+    @include title();
+  }
+  &__container {
+    @include container();
+  }
+  &__grid {
+    display: grid;
+    padding: 29px 0 48px;
+    gap: 60px;
+    grid-template-columns: auto auto;
+    grid-template-areas:
+      "contact_wrapper contact_link"
+      "contact_adress contact_link";
+  }
+  &__items {
+    grid-area: contact_wrapper;
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  &__item {
+    max-width: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    &-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      a {
+        text-decoration: none;
+        color: var(--color-text-header);
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 21.94px;
+      }
+    }
+    &-img {
+      @include icon();
+      padding: 11px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    &-descr {
+      color: var(--color-text-descr);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 25.2px;
+    }
+  }
+  &__adress {
+    grid-area: contact_adress;
+    max-width: 530px;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 32.4px;
+    &-subheader {
+      color: var(--color-text-header);
+    }
+    &-descr {
+      color: var(--color-text-descr);
+    }
+  }
+  &__links {
+    grid-area: contact_link;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 35px;
+    align-items: end;
+    &-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 35px;
+      list-style-type: none;
+      padding-left: 0;
+      a {
+        text-decoration: none;
+        cursor: pointer;
+        color: var(--color-text-primary);
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 18px;
+        text-align: right;
+      }
+    }
+    &-button {
+      @include button();
+      &--active {
+        @include button--primary();
+      }
+    }
+  }
+  @media (max-width: 1260px) {
+    &__grid {
+      grid-template-areas:
+        "contact_wrapper contact_link"
+        "contact_adress contact_adress";
+    }
+  }
+  @media (max-width: 992px) {
+    &__grid {
+      grid-template-columns: auto;
+      grid-template-areas:
+        "contact_wrapper"
+        "contact_adress"
+        "contact_link";
+    }
+    &__links {
+      align-items: center;
+      &-wrapper {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+  }
+  @media (max-width: 576px) {
+    &__grid {
+      padding: 29px 0 0;
+    }
+    &__links {
+      align-items: start;
+      &-wrapper {
+        flex-direction: column;
+        justify-content: center;
+        align-items: start;
+      }
+    }
+  }
+}

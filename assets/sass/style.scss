@@ -1,0 +1,43 @@
+@import "base/variables";
+@import "base/mixins";
+@import "base/animation";
+
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+body {
+  background: var(--bg-color);
+  z-index: -5;
+  margin: 0;
+  font-family: "Montserrat", serif;
+  color: var(--color-text);
+}
+body .no-scroll {
+  overflow: hidden;
+}
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  -o-object-fit: cover;
+}
+
+@import "blocks/preloader";
+@import "blocks/promo";
+@import "blocks/menu";
+@import "blocks/header";
+@import "blocks/advantages";
+@import "blocks/slider";
+@import "blocks/select";
+@import "blocks/infrastructure";
+@import "blocks/mortgage";
+@import "blocks/location";
+@import "blocks/contact";
+@import "blocks/footer";
+@import "blocks/up";
+@import "blocks/modal";
+@import "blocks/document";
+@import "blocks/progress";
+@import "blocks/policy";
+@import "blocks/404";

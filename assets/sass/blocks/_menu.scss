@@ -1,0 +1,142 @@
+.hamburger {
+  max-width: 44px;
+  display: none;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  &__line {
+    background: var(--color-text-primary);
+    height: 2px;
+    width: 16px;
+    border-radius: 1px;
+  }
+  @media (max-width: 1070px) {
+    display: flex;
+  }
+}
+
+.menu {
+  &__close {
+    display: none;
+    font-size: 40px;
+    line-height: 20px;
+    color: var(--color-text-primary);
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    padding: 11px;
+    border-radius: 50%;
+    border: 1px solid rgba(128, 128, 128, 0.2);
+  }
+
+  &__logo {
+    display: none;
+    max-width: 132px;
+  }
+
+  &__list {
+    padding-left: 100px;
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+
+  &__link {
+    color: var(--color-text-header);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.36px;
+    text-decoration: none;
+  }
+
+  &__phone {
+    text-decoration: none;
+    display: none;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    &-number {
+      color: #313131;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 21.94px;
+    }
+    &-icon {
+      display: inline-block;
+      @include icon();
+      padding: 11px;
+      border-radius: 50%;
+      border: 1px solid rgba(128, 128, 128, 0.2);
+    }
+  }
+  @media (max-width: 1260px) {
+    &__list {
+      padding-left: 0;
+    }
+  }
+  @media (max-width: 1070px) {
+    position: fixed;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    width: 305px;
+    padding: 40px;
+    background: var(--color-text-header);
+
+    &__close {
+      display: block;
+    }
+
+    &__logo {
+      display: block;
+      margin-bottom: 70px;
+    }
+
+    &__list {
+      gap: 0;
+      align-items: start;
+      padding-left: 0;
+      flex-direction: column;
+      margin-bottom: 65px;
+    }
+    &__item {
+      display: block;
+      width: 100%;
+    }
+    &__link {
+      display: block;
+      padding: 15px 0;
+      color: #313131;
+    }
+
+    &__phone {
+      display: flex;
+      &-number {
+        color: #313131;
+      }
+    }
+
+    &__overlay {
+      z-index: 10;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.8);
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0.3s, opacity 0.3s;
+
+      &--active {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+  }
+}

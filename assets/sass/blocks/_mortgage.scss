@@ -1,0 +1,188 @@
+.mortgage {
+  &__container {
+    @include container();
+  }
+  &__title {
+    @include title();
+    margin-bottom: 29px;
+  }
+  &__categories {
+    overflow: scroll;
+    scrollbar-width: none;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin: 0 -40px 43px -40px;
+    padding: 0 40px;
+  }
+  &__category {
+    @include button();
+    white-space: nowrap;
+    &--active {
+      @include button--primary();
+    }
+  }
+  &__advantages {
+    margin-bottom: 42px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: start;
+    align-items: start;
+  }
+  &__advantage {
+    width: 100%;
+    max-width: 380px;
+    &:first-child {
+      max-width: 300px;
+    }
+    &-subheader {
+      font-size: 31px;
+      font-weight: 600;
+      line-height: 39.01px;
+      margin-bottom: 20px;
+    }
+    &-descr {
+      color: var(--color-text-descr);
+
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 25.2px;
+    }
+  }
+  .banks {
+    &__subheader {
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 39.01px;
+      margin-bottom: 9px;
+    }
+    &__category {
+      display: none;
+      &--active {
+        display: block;
+      }
+    }
+    &__table {
+      display: block;
+      overflow: scroll;
+      scrollbar-width: none;
+      width: inherit;
+      margin: 0 -40px 43px -40px;
+      padding: 0 40px;
+
+      &-container {
+        border-collapse: collapse;
+        max-width: 1180px;
+        min-width: 970px;
+        width: 100%;
+      }
+      &-head {
+        max-width: 1180px;
+        width: 100%;
+      }
+      &-column {
+        width: 200px;
+        border-bottom: 2px solid var(--color-text-primary);
+        text-align: left;
+        padding: 11px 15px 11px 0;
+        color: #727b8c;
+
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 18.2px;
+      }
+
+      &-cell {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 16px 27px 16px 0;
+
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 25.2px;
+      }
+    }
+    &__name {
+      display: grid;
+      grid-template-columns: 40px auto;
+      gap: 10px;
+      align-items: center;
+      &-img {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        padding: 6px;
+        background: var(--color-text-header);
+        img {
+          object-fit: contain;
+        }
+      }
+    }
+    &__button {
+      cursor: pointer;
+      color: var(--color-text-primary);
+
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 25.2px;
+      text-align: right;
+    }
+  }
+  &__bottom {
+    display: flex;
+    gap: 16px;
+    &-descr {
+      max-width: 200px;
+      color: var(--color-text-header);
+
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 22.4px;
+    }
+  }
+  &__button {
+    @include button();
+    &--active {
+      @include button--primary();
+    }
+  }
+  @media (max-width: 768px) {
+    &__advantages {
+      flex-direction: column;
+    }
+    &__advantage {
+      max-width: 100%;
+      &:first-child {
+        max-width: 100%;
+      }
+      &-subheader {
+        font-size: 22px;
+        line-height: 26.82px;
+        margin-bottom: 12px;
+      }
+    }
+  }
+  @media (max-width: 576px) {
+    &__categories {
+      margin: 0 -10px 43px -10px;
+      padding: 0 10px;
+    }
+    .banks {
+      &__subheader {
+        font-size: 22px;
+        line-height: 26.82px;
+      }
+      &__table {
+        margin: 0 -10px 43px -10px;
+        padding: 0 10px;
+      }
+    }
+    &__bottom {
+      flex-direction: column;
+      align-items: start;
+    }
+  }
+}

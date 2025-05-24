@@ -1,0 +1,155 @@
+.location {
+  padding: 100px 0 142px;
+  &__container {
+    @include container();
+    padding: 0;
+  }
+  &__title {
+    @include title();
+  }
+  &__grid {
+    padding: 0 40px;
+    overflow: hidden;
+    display: grid;
+    gap: 50px;
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+    grid-template-areas:
+      "location_title location_maps"
+      "location_wrapper location_maps"
+      "location_advantages location_maps";
+  }
+  &__text {
+    grid-area: location_title;
+  }
+  &__descr {
+    margin-top: 29px;
+    max-width: 380px;
+    color: var(--color-text-descr);
+
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 25.2px;
+  }
+
+  &__items {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-area: location_wrapper;
+    gap: 19px;
+  }
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    &-img {
+      display: flex;
+      padding: 15px;
+      justify-content: center;
+      align-items: center;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+  &__advantages {
+    grid-area: location_advantages;
+    display: flex;
+    gap: 50px;
+    align-items: center;
+  }
+  &__advantage {
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(3, auto);
+    justify-content: start;
+    grid-template-areas:
+      "location_number location_divider location_unit"
+      "location_descr location_descr location_descr";
+    &-number {
+      grid-area: location_number;
+      font-family: "Playfair Display";
+      font-size: 60px;
+      font-style: italic;
+      font-weight: 400;
+      line-height: 79.98px;
+      color: var(--color-text-primary);
+    }
+    &-divider {
+      padding-top: 20px;
+      grid-area: location_divider;
+      font-family: "Playfair Display";
+      font-size: 60px;
+      font-style: italic;
+      font-weight: 400;
+      line-height: 79.98px;
+      color: var(--color-text-descr);
+    }
+    &-unit {
+      padding-top: 30px;
+      grid-area: location_unit;
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 18px;
+    }
+    &-descr {
+      max-width: 130px;
+      grid-area: location_descr;
+      color: var(--color-text-descr);
+
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 21px;
+    }
+  }
+  &__maps {
+    overflow: hidden;
+    grid-area: location_maps;
+    iframe {
+      width: 648px;
+      height: 648px;
+      border-radius: 50%;
+    }
+  }
+  @media (max-width: 1200px) {
+    padding: 100px 0 142px;
+    &__grid {
+      display: grid;
+      grid-template-columns: auto auto;
+      justify-content: space-between;
+      grid-template-areas:
+        "location_title location_advantages"
+        "location_wrapper location_advantages"
+        "location_maps location_maps";
+    }
+    &__maps {
+      justify-self: center;
+    }
+  }
+  @media (max-width: 992px) {
+    padding: 100px 0 50px;
+    &__advantages {
+      flex-direction: column;
+      justify-self: end;
+    }
+  }
+  @media (max-width: 576px) {
+    padding: 60px 0;
+    &__container {
+      padding: 0;
+    }
+    &__grid {
+      padding: 0 10px;
+      gap: 20px;
+      grid-template-columns: auto;
+      grid-template-areas:
+        "location_title"
+        "location_wrapper"
+        "location_maps";
+    }
+    &__advantages {
+      display: none;
+    }
+  }
+}
