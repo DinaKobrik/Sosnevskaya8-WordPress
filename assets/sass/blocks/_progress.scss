@@ -70,6 +70,8 @@
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
+      -webkit-user-drag: none;
+      pointer-events: none;
       flex: 0 0 auto;
       width: 180px;
       height: 180px;

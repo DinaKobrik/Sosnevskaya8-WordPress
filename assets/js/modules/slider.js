@@ -5,26 +5,40 @@ document.addEventListener("DOMContentLoaded", () => {
   const sliderWrapper = document.querySelector(".slider__items");
   const sliderItems = document.querySelectorAll(".slider__item");
 
+  if (!sliderContainer || !sliderWrapper || !sliderItems.length) {
+    console.error("Required slider elements are missing");
+    return;
+  }
+
   let currentIndex = 0;
   let slidesToShow = 1;
   let centerPadding = 130;
   let startX = 0;
   let endX = 0;
+  let isDragging = false;
+  let autoScrollTimeout = null;
 
   function updateSlider() {
     const containerWidth = sliderContainer.offsetWidth;
     const itemWidth = (containerWidth - 2 * centerPadding) / slidesToShow;
 
-    sliderWrapper.style.transform = `translateX(-${
-      currentIndex * itemWidth - centerPadding
-    }px)`;
+    let offset;
+    if (currentIndex === 0) {
+      offset = 0;
+    } else {
+      offset = currentIndex * itemWidth - centerPadding;
+    }
+    sliderWrapper.style.transform = `translateX(-${offset}px)`;
 
     sliderItems.forEach((item, i) => {
       item.style.width = `${itemWidth}px`;
 
       const img = item.querySelector("img");
       if (img) {
-        if (i === currentIndex || i === sliderItems.length - 1) {
+        if (
+          i === currentIndex ||
+          (currentIndex === 0 && i === sliderItems.length - 1)
+        ) {
           img.style.filter = "brightness(100%)";
           img.style.zIndex = "10";
         } else {
@@ -60,32 +74,58 @@ document.addEventListener("DOMContentLoaded", () => {
     updateSlider();
   }
 
-  window.addEventListener("resize", updateResponsiveSettings);
+  function startAutoScroll() {
+    clearTimeout(autoScrollTimeout);
+    autoScrollTimeout = setTimeout(() => {
+      goToSlide(currentIndex + 1);
+      startAutoScroll();
+    }, 3000);
+  }
 
-  sliderContainer.addEventListener("touchstart", (e) => {
-    startX = e.touches[0].clientX;
-  });
+  function resetAutoScroll() {
+    startAutoScroll();
+  }
 
-  sliderContainer.addEventListener("touchmove", (e) => {
-    endX = e.touches[0].clientX;
-  });
+  function handleStart(e) {
+    isDragging = true;
+    startX = e.type.includes("mouse") ? e.clientX : e.touches[0].clientX;
+    e.preventDefault();
+  }
 
-  sliderContainer.addEventListener("touchend", () => {
+  function handleMove(e) {
+    if (!isDragging) return;
+    endX = e.type.includes("mouse") ? e.clientX : e.touches[0].clientX;
+  }
+
+  function handleEnd() {
+    if (!isDragging) return;
+    isDragging = false;
+
     const deltaX = endX - startX;
-
     if (deltaX > 50) {
       goToSlide(currentIndex - 1);
+      resetAutoScroll();
     } else if (deltaX < -50) {
       goToSlide(currentIndex + 1);
+      resetAutoScroll();
     }
 
     startX = 0;
     endX = 0;
-  });
+  }
 
-  setInterval(() => {
-    goToSlide(currentIndex + 1);
-  }, 3000);
+  window.addEventListener("resize", updateResponsiveSettings);
+
+  sliderContainer.addEventListener("touchstart", handleStart, {
+    passive: false,
+  });
+  sliderContainer.addEventListener("touchmove", handleMove, { passive: false });
+  sliderContainer.addEventListener("touchend", handleEnd);
+
+  sliderContainer.addEventListener("mousedown", handleStart);
+  sliderContainer.addEventListener("mousemove", handleMove);
+  sliderContainer.addEventListener("mouseup", handleEnd);
+  sliderContainer.addEventListener("mouseleave", handleEnd);
 
   sliderItems.forEach((item, index) => {
     item.addEventListener("click", () => {
@@ -94,9 +134,11 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         goToSlide(index);
       }
+      resetAutoScroll();
     });
   });
 
   updateResponsiveSettings();
   goToSlide(0);
+  startAutoScroll();
 });

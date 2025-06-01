@@ -13,77 +13,133 @@
       return;
     }
 
-    const throttle = (func, delay) => {
-      let lastCall = 0;
-      return (...args) => {
-        const now = new Date().getTime();
-        if (now - lastCall < delay) return;
-        lastCall = now;
-        return func(...args);
-      };
-    };
-
     photoScrollElements.forEach((scrollContainer) => {
-      let isDragging = false;
-      let startX;
-      let scrollLeft;
-
+      // Настройка доступности
       scrollContainer.setAttribute("role", "region");
       scrollContainer.setAttribute("aria-label", "Scrollable content");
       scrollContainer.setAttribute("tabindex", "0");
 
-      scrollContainer.addEventListener("mousedown", (e) => {
+      let isDragging = false;
+      let startX, startY;
+      let deltaXAccumulated = 0;
+      const swipeThreshold = 50; // Порог для свайпа
+
+      // Получаем ширину элемента (например, первой карточки)
+      const getScrollStep = () => {
+        const firstItem = scrollContainer.querySelector("*");
+        return firstItem
+          ? firstItem.offsetWidth +
+              parseInt(getComputedStyle(firstItem).marginRight || 0)
+          : 300; // Запасной шаг 300px
+      };
+
+      // Обработчик начала свайпа/перетаскивания
+      const handleStart = (x, y) => {
         isDragging = true;
+        startX = x;
+        startY = y;
+        deltaXAccumulated = 0;
         scrollContainer.classList.add("scroll-container--dragging");
-        startX = (e.pageX || e.clientX) - scrollContainer.offsetLeft;
-        scrollLeft = scrollContainer.scrollLeft;
-      });
+      };
 
-      scrollContainer.addEventListener("mouseleave", () => {
-        isDragging = false;
-        scrollContainer.classList.remove("scroll-container--dragging");
-      });
-
-      scrollContainer.addEventListener("mouseup", () => {
-        isDragging = false;
-        scrollContainer.classList.remove("scroll-container--dragging");
-      });
-
-      const handleMouseMove = throttle((e) => {
+      // Обработчик движения
+      const handleMove = (x, y, isTouch = false) => {
         if (!isDragging) return;
-        e.preventDefault();
-        const x = (e.pageX || e.clientX) - scrollContainer.offsetLeft;
-        const walk = (x - startX) * 1;
-        scrollContainer.scrollLeft = scrollLeft - walk;
-      }, 16);
 
-      scrollContainer.addEventListener("mousemove", handleMouseMove);
+        const deltaX = x - startX;
+        const deltaY = y - startY;
+        const absDeltaX = Math.abs(deltaX);
+        const absDeltaY = Math.abs(deltaY);
 
-      scrollContainer.addEventListener("touchstart", (e) => {
-        isDragging = true;
-        startX = e.touches[0].pageX - scrollContainer.offsetLeft;
-        scrollLeft = scrollContainer.scrollLeft;
+        // Игнорируем вертикальный скролл
+        if (absDeltaY > absDeltaX && absDeltaY > 20) {
+          isDragging = false;
+          return;
+        }
+
+        // Предотвращаем только горизонтальный скролл
+        if (isTouch && event.cancelable && absDeltaX > absDeltaY) {
+          event.preventDefault();
+        }
+
+        deltaXAccumulated += deltaX;
+        const scrollStep = getScrollStep();
+
+        // Прокручиваем, если накопленное смещение превышает порог
+        if (Math.abs(deltaXAccumulated) > swipeThreshold) {
+          const direction = deltaXAccumulated > 0 ? -1 : 1;
+          scrollContainer.scrollBy({
+            left: direction * scrollStep,
+            behavior: "smooth",
+          });
+          deltaXAccumulated = 0; // Сбрасываем накопленное смещение
+        }
+
+        startX = x; // Обновляем начальную точку
+      };
+
+      // Обработчик окончания
+      const handleEnd = () => {
+        isDragging = false;
+        scrollContainer.classList.remove("scroll-container--dragging");
+      };
+
+      // События для мыши
+      scrollContainer.addEventListener("mousedown", (e) => {
+        handleStart(e.clientX, e.clientY);
       });
 
-      scrollContainer.addEventListener("touchend", () => {
-        isDragging = false;
+      scrollContainer.addEventListener("mousemove", (e) => {
+        handleMove(e.clientX, e.clientY);
+      });
+
+      scrollContainer.addEventListener("mouseup", handleEnd);
+      scrollContainer.addEventListener("mouseleave", handleEnd);
+
+      // События для сенсорных устройств
+      scrollContainer.addEventListener("touchstart", (e) => {
+        handleStart(e.touches[0].clientX, e.touches[0].clientY);
       });
 
       scrollContainer.addEventListener("touchmove", (e) => {
-        if (!isDragging) return;
-        e.preventDefault();
-        const x = e.touches[0].pageX - scrollContainer.offsetLeft;
-        const walk = (x - startX) * 1;
-        scrollContainer.scrollLeft = scrollLeft - walk;
+        handleMove(e.touches[0].clientX, e.touches[0].clientY, true);
       });
 
+      scrollContainer.addEventListener("touchend", handleEnd);
+
+      // Поддержка клавиш
       scrollContainer.addEventListener("keydown", (e) => {
+        const scrollStep = getScrollStep();
         if (e.key === "ArrowLeft") {
-          scrollContainer.scrollLeft -= 100;
+          scrollContainer.scrollBy({ left: -scrollStep, behavior: "smooth" });
         } else if (e.key === "ArrowRight") {
-          scrollContainer.scrollLeft += 100;
+          scrollContainer.scrollBy({ left: scrollStep, behavior: "smooth" });
         }
       });
+
+      // Поддержка колеса мыши
+      scrollContainer.addEventListener(
+        "wheel",
+        (e) => {
+          const deltaX = e.deltaX;
+          const deltaY = e.deltaY;
+          const absDeltaX = Math.abs(deltaX);
+          const absDeltaY = Math.abs(deltaY);
+
+          if (absDeltaX >= absDeltaY || absDeltaY < 50) {
+            if (e.cancelable) {
+              e.preventDefault();
+            }
+            const scrollStep = getScrollStep();
+            const direction = (deltaX || deltaY) > 0 ? 1 : -1;
+            scrollContainer.scrollBy({
+              left: direction * scrollStep,
+              behavior: "smooth",
+            });
+          }
+        },
+        { passive: false }
+      );
     });
   });
 })();

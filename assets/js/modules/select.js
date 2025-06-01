@@ -51,6 +51,16 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       console.warn(`No step description found for floor ${floorValue}`);
     }
+
+    const stepImage = document.querySelector(".select__step-img");
+    if (stepImage) {
+      stepImage.className = stepImage.className.replace(
+        /\bselect__step-img--\d+\b/g,
+        ""
+      );
+
+      stepImage.classList.add(`select__step-img--${floorValue}`);
+    }
   }
 
   function initFloorSelection() {

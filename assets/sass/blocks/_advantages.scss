@@ -16,6 +16,8 @@
     gap: 20px;
     overflow: scroll;
     scrollbar-width: none;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
     cursor: grab;
     margin: 0 -130px 0 -40px;
     padding: 0 40px;

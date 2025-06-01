@@ -92,7 +92,8 @@ window.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
   const menuLinks = document.querySelectorAll(".menu__link");
   const upLink = document.querySelector(".up a");
-  const isMainPage = window.location.pathname === "/";
+  const isMainPage =
+    window.location.pathname === "/";
 
   menuLinks.forEach((link) => {
     link.addEventListener("click", (event) => {
